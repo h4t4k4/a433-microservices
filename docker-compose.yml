@@ -6,6 +6,7 @@ services:
       - "80:8080"
     depends_on:
       - item-db
+    restart: always
   item-db:
     image: mongo:3
     volumes:
