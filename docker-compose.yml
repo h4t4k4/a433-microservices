@@ -13,11 +13,14 @@ services:
 # Pastikan item-app hanya berjalan setelah item-db diluncurkan.
     depends_on:
       - item-db
+# restart policy
     restart: always
 # buat service item-db
   item-db:
 # Menggunakan image mongo:3 dari Docker Hub.
     image: mongo:3
+# restart policy
+    restart: always
 # Memakai volume bernama app-db dengan target /data/db di container.
     volumes:
       - app-db:/data/db
