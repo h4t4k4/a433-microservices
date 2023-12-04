@@ -1,7 +1,7 @@
 version: '2'
 services:
   item-app:
-    image: h4t4/item-app:v1
+    image: ghcr.io/h4t4k4/item-app:v1
     ports:
       - "80:8080"
     depends_on:
