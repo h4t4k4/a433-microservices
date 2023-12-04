@@ -1,15 +1,26 @@
+# Menggunakan Docker Compose versi 2 atau lebih.
 version: '2'
+# Memiliki dua buah service: item-app dan item-db.
 services:
+# buat service item-app
   item-app:
-    image: ghcr.io/h4t4k4/item-app:v1
+# Menggunakan image item-app dari Docker Hub (atau GitHub Packages bila 
+#    image: h4t4/item-app:v1 # format Docker Hub
+    image: ghcr.io/h4t4k4/item-app:v1 # format GitHub Package
+# Melakukan port mapping agar dapat diakses dari port 80 di host.
     ports:
       - "80:8080"
+# Pastikan item-app hanya berjalan setelah item-db diluncurkan.
     depends_on:
       - item-db
     restart: always
+# buat service item-db
   item-db:
+# Menggunakan image mongo:3 dari Docker Hub.
     image: mongo:3
+# Memakai volume bernama app-db dengan target /data/db di container.
     volumes:
       - app-db:/data/db
+# Memiliki satu buah volume bernama app-db
 volumes: 
   app-db:
