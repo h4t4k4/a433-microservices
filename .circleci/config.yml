@@ -12,7 +12,7 @@ jobs:
       - checkout
       - run:
           name: Change working directory
-          command: cd ../
+          command: cd ../cmd
       - run:
           name: Run Testing
           command: go test -v -short --count=1 $(go list ./ ...)
