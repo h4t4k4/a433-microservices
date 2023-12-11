@@ -11,8 +11,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Change working directory
-          command: cd ../cmd
+          name: Get current working directory
+          command: pwd
+      - run:
+          name: list working directory
+          command: ll
       - run:
           name: Run Testing
           command: go test -v -short --count=1 $(go list ./ ...)
