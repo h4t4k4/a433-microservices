@@ -15,7 +15,7 @@ jobs:
           command: cd cmd/
       - run:
           name: Run Testing
-          command: go test -v -short --count=1 $(go list ./ ...)
+          command: go test -v -short --count=1 $(go list ./...)
   
   build-app-karsajobs:
     executor: docker/docker
