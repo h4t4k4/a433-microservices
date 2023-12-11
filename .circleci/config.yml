@@ -23,7 +23,7 @@ workflows:
   ci:
     jobs:
       - docker/hadolint:
-          dockerfile: './Dockerfile'
+          dockerfiles: './Dockerfile'
       - build-app-karsajobs-ui:
           requires:
             - docker/hadolint
