@@ -11,6 +11,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Change working directory
+          command: cd ../
+      - run:
           name: Run Testing
           command: go test -v -short --count=1 $(go list ./ ...)
   
