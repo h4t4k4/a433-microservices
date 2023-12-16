@@ -1,16 +1,5 @@
 version: "3.2"
 services:
-  rabbitmq:
-    image: rabbitmq:3.11-management
-    container_name: 'rabbitmq_container'
-    ports:
-      - 5673:5672
-      - 15673:15672
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-      - rabbitmq_network
   consumer:
     build:
       context: ./
@@ -25,6 +14,3 @@ services:
       AMQP_URL: amqp://guest:guest@rabbitmq:5672
     networks:
       - rabbitmq_network
-networks:
-  rabbitmq_network:
-    driver: bridge
