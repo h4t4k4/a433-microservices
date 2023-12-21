@@ -31,13 +31,12 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq/
-      - rabbitmq_log:/var/log/rabbitmq
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     healthcheck:
       test: "exit 0"
     networks:
       - rabbitmq_network
-
 networks:
   rabbitmq_network:
     driver: bridge
