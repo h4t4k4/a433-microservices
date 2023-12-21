@@ -1,8 +1,7 @@
 FROM node:14.21-alpine as builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
 COPY . .
-RUN npm run start
+RUN npm install
+ENV AMQP_URL="amqp://localhost:5672"
 EXPOSE 3000
-CMD [ "npm", "run", "serve" ]
+CMD [ "npm", "index.js" ]
