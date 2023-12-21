@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build Docker image dari Dockerfile
-#docker build -t ghcr.io/h4t4k4/shipping-service:latest .
+docker build -t ghcr.io/h4t4k4/shipping-service:latest .
 
 docker build -t h4t4/shipping-service:latest .
 
