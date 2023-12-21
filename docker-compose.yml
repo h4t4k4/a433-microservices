@@ -1,4 +1,4 @@
-version: "2.1"
+version: "3.2"
 services:
   order-service:
     image: ghcr.io/h4t4k4/order-service:latest
@@ -26,15 +26,15 @@ services:
       - rabbitmq_network
   rabbitmq:
     image: rabbitmq:3.11-management
-    container_name: rabbitmq
+    container_name: rabbitmq_container
     ports:
       - 5672:5672
       - 15672:15672
     volumes:
-      - '~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/'
-      - '~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq'
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     healthcheck:
-      test: "exit 0"
+      test: 'exit 0'
     networks:
       - rabbitmq_network
 
