@@ -4,4 +4,4 @@ COPY . .
 RUN npm install
 ENV AMQP_URL="amqp://localhost:5672"
 EXPOSE 3001
-CMD [ "npm", "index.js" ]
+CMD [ "node", "index.js" ]
