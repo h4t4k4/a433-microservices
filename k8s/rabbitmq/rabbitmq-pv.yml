@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/rabbitmq/"
+    path: "/rabbitmqdata"
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -26,4 +26,28 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/log/rabbitmq"
+    path: "/rabbitmqlog"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmqdata-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmqlog-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
