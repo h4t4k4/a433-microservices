@@ -22,14 +22,7 @@ spec: # Spesifikasi untuk deployment
         - containerPort: 15672 # Port yang digunakan untuk mengakses container
           name: uiport
         volumeMounts: # volume mount yang digunakan untuk eksekusi aplikasi
-        - name: rabbitmqdata # nama volume mount
+        - name: rabbitmq-data # nama volume mount
           mountPath: /var/lib/rabbitmq/ # nilai path yang digunakan didalam container
-        - name: rabbitmqlog # nama configMap
+        - name: rabbitmq-log # nama configMap
           mountPath: /var/log/rabbitmq # path configmap
-      volumes:
-      - name: rabbitmq-data # nama persistent volume yang akan digunakan
-        persistentVolumeClaim: 
-          claimName: rabbitmqdata # nama persistent volume claim yang digunakan
-      - name: rabbitmq-log # nama persistent volume yang akan digunakan
-        persistentVolumeClaim: 
-          claimName: rabbitmqlog # nama persistent volume claim yang digunakan
