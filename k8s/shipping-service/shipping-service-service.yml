@@ -1,0 +1,13 @@
+apiVersion: v1 # Versi API yang didefenisikan
+kind: Service # Jenis Objek K8S
+metadata: # Metadata untuk Service
+  name: shipping-service # Nama Service
+  labels: # label service
+    app: shipping-service
+spec: # Spesifikasi untuk service
+  type: NodePort # Tipe service yang akan dibuat
+  ports:
+  - port: 3001 # Port yang akan dibuka pada service harus sesuai dengan yang ada dideployment 
+  selector:
+    app: shipping-service # memilih pod dengan nama backend untuk melayani service ini.
+  

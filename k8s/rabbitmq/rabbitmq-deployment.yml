@@ -1,0 +1,35 @@
+apiVersion: apps/v1 # Versi API yang didefenisikan
+kind: Deployment # Jenis Objek K8S
+metadata:  # Metadata untuk Deployment
+  name: rabbitmq # Nama Deployment
+spec: # Spesifikasi untuk deployment
+  replicas: 1 # Jumlah Replika pod yang akan dibuat
+  selector: # Selector untuk memilih pod
+    matchLabels: # pod yang dipilih harus memiliki label yang sesuai ketentuan
+      app: rabbitmq
+  template: # template untuk membuat pod
+    metadata: # metadata untuk pod
+      labels: # label untuk pod
+        app: rabbitmq
+    spec:
+      containers: # konfigurasi container dalam pod
+      - name: rabbitmq # nama container
+        image: rabbitmq:3.11-management # nama image yang digunakan untuk membuat container
+        imagePullPolicy: Always # Mekanisme pull image (image dipull setiap kali restart)
+        ports:
+        - containerPort: 5672 # Port yang digunakan untuk mengakses container
+          name: appsport
+        - containerPort: 15672 # Port yang digunakan untuk mengakses container
+          name: uiport
+        volumeMounts: # volume mount yang digunakan untuk eksekusi aplikasi
+        - name: rabbitmq_data # nama volume mount
+          mountPath: /var/lib/rabbitmq/ # nilai path yang digunakan didalam container
+        - name: rabbitmq_log # nama configMap
+          mountPath: /var/log/rabbitmq # path configmap
+      volumes:
+      - name: rabbitmq_data # nama persistent volume yang akan digunakan
+        persistentVolumeClaim: 
+          claimName: rabbitmq_data # nama persistent volume claim yang digunakan
+      - name: rabbitmq_log # nama persistent volume yang akan digunakan
+        persistentVolumeClaim: 
+          claimName: rabbitmq_log # nama persistent volume claim yang digunakan
