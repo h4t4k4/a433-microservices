@@ -27,9 +27,9 @@ spec: # Spesifikasi untuk deployment
         - name: rabbitmqlog # nama configMap
           mountPath: /var/log/rabbitmq # path configmap
       volumes:
-      - name: rabbitmqData # nama persistent volume yang akan digunakan
+      - name: rabbitmq-data # nama persistent volume yang akan digunakan
         persistentVolumeClaim: 
           claimName: rabbitmqdata # nama persistent volume claim yang digunakan
-      - name: rabbitmqLog # nama persistent volume yang akan digunakan
+      - name: rabbitmq-log # nama persistent volume yang akan digunakan
         persistentVolumeClaim: 
           claimName: rabbitmqlog # nama persistent volume claim yang digunakan
