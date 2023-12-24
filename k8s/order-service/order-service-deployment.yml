@@ -1,0 +1,23 @@
+apiVersion: apps/v1 # Versi API yang didefenisikan
+kind: Deployment # Jenis Objek K8S
+metadata:  # Metadata untuk Deployment
+  name: order-service # Nama Deployment
+spec: # Spesifikasi untuk deployment
+  replicas: 1 # Jumlah Replika pod yang akan dibuat
+  selector: # Selector untuk memilih pod
+    matchLabels: # pod yang dipilih harus memiliki label yang sesuai ketentuan
+      app: order-service
+  template: # template untuk membuat pod
+    metadata: # metadata untuk pod
+      labels: # label untuk pod
+        app: order-service
+    spec:
+      containers: # konfigurasi container dalam pod
+      - name: order-service # nama container
+        image: ghcr.io/h4t4k4/order-service:latest # nama image yang digunakan untuk membuat container
+        imagePullPolicy: Always # Mekanisme pull image (image dipull setiap kali restart)
+        ports:
+        - containerPort: 3000 # Port yang digunakan untuk mengakses container
+        env: # Environment variable yang ditentukan didalam container
+        - name: AMQP_URL # buat nama env var 
+          value: 'amqp://rabbitmq:5672' # buat nilai dari env var diatas
