@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: rabbitmq-deployment
 spec:
+  serviceName: rabbitmq-service # Nama service yang digunakan oleh statefulset
   selector:
     matchLabels:
       app: rabbitmq
