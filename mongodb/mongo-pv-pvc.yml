@@ -1,0 +1,26 @@
+apiVersion: v1 # Versi API yang didefenisikan
+kind: PersistentVolume # Jenis Objek K8S
+metadata: # Metadata untuk Persistent Volume
+  name: mongo-pv # Nama Mongo PV
+  labels: # label PV
+    type: local
+spec: # Spesifikasi untuk persistentvolume
+  storageClassName: manual # Nama StorageClass
+  capacity: # Kapasitas Penyimpanan
+    storage: 10Gi 
+  accessModes: # Access Mode untuk PersistentVolume
+  - ReadWriteOnce
+  hostPath: # Path di host untuk menyimpan data
+    path: "/mnt/data"
+---
+apiVersion: v1 # Versi API yang didefenisikan
+kind: PersistentVolumeClaim # Jenis Objek K8S
+metadata: # metadata untuk pod
+  name: mongo-pvc # Nama Mongo PVC
+spec:
+  storageClassName: manual # Nama StorageClass
+  accessModes: # Access mode untuk persistentVolumeClaim
+    - ReadWriteOnce
+  resources: # Resource yang digunakan oleh PVC
+    requests: 
+      storage: 10Gi

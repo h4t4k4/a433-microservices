@@ -1,0 +1,8 @@
+apiVersion: v1 # Versi API yang didefenisikan
+kind: ConfigMap # Jenis Objek K8S
+metadata: # Metadata untuk ConfigMap
+  name: mongo-config # Nama ConfigMap
+data: # data yang akan disimpan dalam configmap
+  mongo.conf: |
+    storage:
+      dbPath: /data/db

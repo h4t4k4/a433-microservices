@@ -1,0 +1,52 @@
+apiVersion: apps/v1 # Versi API yang didefenisikan
+kind: StatefulSet # Jenis Objek K8S
+metadata: # Metadata untuk statefulset
+  name: mongodb # Nama Deployment
+spec: # Spesifikasi untuk deployment ini
+  serviceName: mongo-service # Nama service yang digunakan oleh statefulset
+  replicas: 0 # Jumlah Replika pod yang akan dibuat
+  selector: # Selector untuk memilih pod
+    matchLabels: # pod yang dipilih harus memiliki label yang sesuai ketentuan
+      app: database 
+      selector: mongodb
+  template: # template untuk membuat pod
+    metadata: 
+      labels: # label pod
+        app: database
+        selector: mongodb
+    spec: # spesifikasi  untuk statefulset
+      containers: 
+      - name: mongodb # nama container
+        image: mongo:4.4.3 # nama image yang digunakan untuk container
+        ports:
+        - containerPort: 27017 # port yang digunakan untuk mengakses container
+        env: # untuk mendefenisikan environment variable
+        - name: MONGO_INITDB_ROOT_USERNAME_FILE # nama envi var
+          value: /etc/mongo-credentials/MONGO_ROOT_USERNAME # nilai envi var
+        - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+          value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+        volumeMounts: # volume mount yang digunakan untuk eksekusi aplikasi
+        - name: mongo-data # nama volume mount
+          mountPath: /data/db # nilai path yang digunakan didalam container
+        - name: mongo-config # nama configMap
+          mountPath: /config # path configmap
+        - name: mongo-credentials # nama credentials yang digunakan container
+          mountPath: /etc/mongo-credentials # path yang digunakan untuk menaruh credentials
+      volumes:
+      - name: mongo-data # nama persistent volume yang akan digunakan
+        persistentVolumeClaim: 
+          claimName: mongo-pvc # nama persistent volume claim yang digunakan
+      - name: mongo-config # nama configmap yang akan digunakan
+        configMap:
+          name: mongo-config # nama configmap yang ada yang digunakan
+          items: # key dan path config map yang akan digunakan
+          - key: mongo.conf
+            path: mongo.conf
+      - name: mongo-credentials # nama secret yang digunakan
+        secret:
+          secretName: mongo-credentials
+          items: # key dan path secret yang digunakan
+          - key: MONGO_ROOT_USERNAME
+            path: MONGO_ROOT_USERNAME
+          - key: MONGO_ROOT_PASSWORD
+            path: MONGO_ROOT_PASSWORD
